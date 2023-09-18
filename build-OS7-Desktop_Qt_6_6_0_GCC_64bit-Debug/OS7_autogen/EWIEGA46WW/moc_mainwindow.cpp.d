@@ -1,8 +1,8 @@
-/home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug/OS7_autogen/EWIEGA46WW/moc_mainwindow.cpp: /home/cjanus/QtProject/Operating-System-Curriculum/OS7/mainwindow.h \
+/home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug/OS7_autogen/EWIEGA46WW/moc_mainwindow.cpp: /home/cjanus/QtProject/Operating-System-Curriculum/mainwindow.h \
   /home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug/OS7_autogen/moc_predefs.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QDebug \
+  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QList \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QObject \
-  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QQueue \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QSemaphore \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QString \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QThread \
@@ -74,7 +74,6 @@
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qpair.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qpoint.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qprocessordetection.h \
-  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qqueue.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qrect.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qrefcount.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qscopedpointer.h \
@@ -169,10 +168,10 @@
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtWidgets/qtwidgetsexports.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtWidgets/qwidget.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/bufferpool.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/receiver.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/semaphoremanager.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/sender.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/bufferpool.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/receiver.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/semaphoremanager.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/sender.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \

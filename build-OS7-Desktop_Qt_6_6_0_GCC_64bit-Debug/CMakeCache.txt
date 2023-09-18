@@ -14,15 +14,6 @@
 # EXTERNAL cache entries
 ########################
 
-//Value Computed by CMake
-002_BINARY_DIR:STATIC=/home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug
-
-//Value Computed by CMake
-002_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-002_SOURCE_DIR:STATIC=/home/cjanus/QtProject/Operating-System-Curriculum/OS7
-
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -300,7 +291,7 @@ OS7_BINARY_DIR:STATIC=/home/cjanus/QtProject/Operating-System-Curriculum/build-O
 OS7_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-OS7_SOURCE_DIR:STATIC=/home/cjanus/QtProject/Operating-System-Curriculum/OS7
+OS7_SOURCE_DIR:STATIC=/home/cjanus/QtProject/Operating-System-Curriculum
 
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
@@ -439,7 +430,7 @@ CMAKE_GENERATOR_TOOLSET:INTERNAL=
 CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/cjanus/QtProject/Operating-System-Curriculum/OS7
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/cjanus/QtProject/Operating-System-Curriculum
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /home/cjanus/Qt/Tools/CMake/bin/cmake --regenerate-during-build -S/home/cjanus/QtProject/Operating-System-Curriculum/OS7 -B/home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug
+  command = /home/cjanus/Qt/Tools/CMake/bin/cmake --regenerate-during-build -S/home/cjanus/QtProject/Operating-System-Curriculum -B/home/cjanus/QtProject/Operating-System-Curriculum/build-OS7-Desktop_Qt_6_6_0_GCC_64bit-Debug
   description = Re-running CMake...
   generator = 1
 

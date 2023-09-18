@@ -1,7 +1,7 @@
 OS7_autogen/timestamp: \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QDebug \
+  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QList \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QObject \
-  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QQueue \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QSemaphore \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QString \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/QThread \
@@ -73,7 +73,6 @@ OS7_autogen/timestamp: \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qpair.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qpoint.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qprocessordetection.h \
-  /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qqueue.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qrect.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qrefcount.h \
   /home/cjanus/Qt/6.6.0/gcc_64/include/QtCore/qscopedpointer.h \
@@ -410,22 +409,76 @@ OS7_autogen/timestamp: \
   /home/cjanus/Qt/6.6.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-relwithdebinfo.cmake \
   /home/cjanus/Qt/6.6.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   /home/cjanus/Qt/6.6.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCXXCompiler.cmake.in \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCXXCompilerABI.cpp \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCXXInformation.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeCompilerIdDetection.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineCXXCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineCompileFeatures.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineCompilerABI.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineCompilerId.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeDetermineSystem.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeFindBinUtils.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeFindDependencyMacro.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeGenericSystem.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeNinjaFindMake.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeParseImplicitIncludeInfo.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeParseImplicitLinkInfo.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeParseLibraryArchitecture.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeSystem.cmake.in \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeTestCXXCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CMakeTestCompilerCommon.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CheckCXXCompilerFlag.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CheckCXXSourceCompiles.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CheckIncludeFileCXX.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/CheckLibraryExists.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Cray-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/GHS-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/GNU-CXX.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/GNU-FindBinUtils.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/GNU.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/IAR-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Intel-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/PGI-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/SCO-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/TI-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/FeatureSummary.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/FindOpenGL.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake \
@@ -437,27 +490,29 @@ OS7_autogen/timestamp: \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Internal/CheckCompilerFlag.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Internal/CheckFlagCommonConfig.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Internal/FeatureTesting.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/MacroAddFileDependencies.cmake \
+  /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Platform/Linux-Determine-CXX.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Platform/Linux-GNU-CXX.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Platform/Linux-GNU.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Platform/Linux.cmake \
   /home/cjanus/Qt/Tools/CMake/share/cmake-3.24/Modules/Platform/UnixPaths.cmake \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/CMakeLists.txt \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/bufferpool.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/bufferpool.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/main.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/mainwindow.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/mainwindow.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/receiver.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/receiver.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/semaphoremanager.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/semaphoremanager.h \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/sender.cpp \
-  /home/cjanus/QtProject/Operating-System-Curriculum/OS7/sender.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/CMakeLists.txt \
+  /home/cjanus/QtProject/Operating-System-Curriculum/bufferpool.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/bufferpool.h \
   .qtc/package-manager/auto-setup.cmake \
   CMakeFiles/3.24.2/CMakeCXXCompiler.cmake \
   CMakeFiles/3.24.2/CMakeSystem.cmake \
   OS7_autogen/moc_predefs.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/main.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/mainwindow.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/mainwindow.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/receiver.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/receiver.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/semaphoremanager.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/semaphoremanager.h \
+  /home/cjanus/QtProject/Operating-System-Curriculum/sender.cpp \
+  /home/cjanus/QtProject/Operating-System-Curriculum/sender.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \

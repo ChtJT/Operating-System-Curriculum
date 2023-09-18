@@ -1,4 +1,4 @@
-# Install script for directory: /home/cjanus/QtProject/Operating-System-Curriculum/OS7
+# Install script for directory: /home/cjanus/QtProject/Operating-System-Curriculum
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
