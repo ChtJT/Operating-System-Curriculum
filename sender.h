@@ -1,24 +1,29 @@
 #ifndef SENDER_H
 #define SENDER_H
 
-#include <QThread>
+#include <QObject>
 #include "bufferpool.h"
 #include "semaphoremanager.h"
 
-class Sender : public QThread {
+class Sender : public QObject
+{
     Q_OBJECT
-
 public:
-    explicit Sender(BufferPool *bufferPool, int id, QObject *parent = nullptr);
+    explicit Sender(BufferPool* pool, SemaphoreManager* semaphore, QObject *parent = nullptr);
 
-    void run() override;
+public slots:
+    void send();
+    void setShouldRun(bool value) { shouldRun = value; }
+    void restart() { shouldRun = true; }
+
 
 signals:
-    void messageToSend(const QString &msg);
+    void messageSent(const QString& message);
 
 private:
-    BufferPool *m_bufferPool;
-    int m_id;
+    BufferPool* bufferPool;
+    SemaphoreManager* semaphoreManager;
+    bool shouldRun = true;
 };
 
 #endif // SENDER_H

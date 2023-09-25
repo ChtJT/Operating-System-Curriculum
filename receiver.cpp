@@ -1,26 +1,22 @@
 #include "receiver.h"
-#include "semaphoremanager.h"
-#include <QRandomGenerator>
-#include <QDebug>
+#include <QThread>
 
-Receiver::Receiver(BufferPool *bufferPool, QObject *parent)
-    : QThread(parent), m_bufferPool(bufferPool) {}
+Receiver::Receiver(BufferPool* pool, SemaphoreManager* semaphore, QObject *parent)
+    : QObject(parent), m_bufferPool(pool), semaphoreManager(semaphore) {}
 
-void Receiver::onMessageToSend(const QString &msg) {
-    Q_UNUSED(msg);
+void Receiver::receive() {
+    while (shouldRun) {
+        semaphoreManager->P();
 
-    // Introduce a random delay
-    QThread::msleep(QRandomGenerator::global()->bounded(200, 500));
+        MessageNode* msgNode = nullptr;
+        if (m_bufferPool->getBuffer(msgNode) && msgNode) {
+            emit messageReceived(msgNode->message,10);
+            m_bufferPool->releaseBuffer(msgNode);
+        }
 
-    // Use semaphore for synchronized access
-    SemaphoreManager::bufferPoolSemaphore.acquire();
-    QString fetchedMsg = m_bufferPool->fetchMessage();
-    SemaphoreManager::bufferPoolSemaphore.release();
+        semaphoreManager->V();
 
-    if (!fetchedMsg.isEmpty()) {
-        qDebug() << "Receiver fetched: " << fetchedMsg;
+        // Simulate a delay in receiving the message
+        QThread::sleep(1);
     }
-
-    // Introduce another random delay
-    QThread::msleep(QRandomGenerator::global()->bounded(200, 500));
 }

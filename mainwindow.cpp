@@ -1,89 +1,164 @@
 #include "mainwindow.h"
-#include <QTextEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
 
-    MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),
-    m_bufferPool(new BufferPool(10, this)) // assuming pool size is 10 messages for demonstration
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent)
 {
-    m_textEdit = new QTextEdit(this);
-    QPushButton *button1 = new QPushButton("Start", this);
-    QPushButton *button2 = new QPushButton("Stop", this);
-    QPushButton *button3 = new QPushButton("End", this);
 
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->addWidget(m_textEdit);
-    layout->addWidget(button1);
-    layout->addWidget(button2);
-    layout->addWidget(button3);
+    startButton = new QPushButton("开始", this);
+    pauseButton = new QPushButton("暂停", this);
+    terminateButton = new QPushButton("终止", this);
+    textEdit = new QTextEdit(this);
+    bufferPoolProgress = new QProgressBar(this);
+    bufferPoolProgress->setRange(0, 10);  // 设置范围为0到10
+    bufferPoolProgress->setValue(10);
+    messageList = new QListWidget(this);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(startButton);
+    layout->addWidget(pauseButton);
+    layout->addWidget(terminateButton);
+    layout->addWidget(bufferPoolProgress);
+    layout->addWidget(messageList);
+    layout->addWidget(textEdit);
 
     QWidget *centralWidget = new QWidget(this);
     centralWidget->setLayout(layout);
     setCentralWidget(centralWidget);
 
-    // Initialize multiple senders and receivers
-    for (int i = 0; i < 3; ++i) {
-        Sender *sender = new Sender(m_bufferPool, i + 1, this);
-        m_senders.append(sender);
-        connect(sender, &Sender::messageToSend, m_textEdit, &QTextEdit::append);
+    // Connect buttons to slots
+    connect(startButton, &QPushButton::clicked, this, &MainWindow::start);
+    connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pause);
+    connect(terminateButton, &QPushButton::clicked, this, &MainWindow::terminate);
+
+    bufferPool = new BufferPool(10, 100); // 创建10个大小为100的缓冲区
+    semaphoreManager = new SemaphoreManager();
+
+    const int numSenders = 10;
+    const int numReceivers = 10;
+    for (int i = 0; i < numSenders; ++i) {
+        Sender* sender = new Sender(bufferPool, semaphoreManager);
+        senders.append(sender);
+        QThread* thread = new QThread;
+        senderThreads.append(thread);
+        sender->moveToThread(thread);
+        connect(thread, &QThread::started, sender, &Sender::send);
+        thread->start();
+    }
+    for (int i = 0; i < numReceivers; ++i) {
+        Receiver* receiver = new Receiver(bufferPool, semaphoreManager);
+        receivers.append(receiver);
+        QThread* thread = new QThread;
+        receiverThreads.append(thread);
+        receiver->moveToThread(thread);
+        connect(thread, &QThread::started, receiver, &Receiver::receive);
+        thread->start();
     }
 
-    for (int i = 0; i < 2; ++i) {
-        Receiver *receiver = new Receiver(m_bufferPool, this);
-        m_receivers.append(receiver);
+    for (int i = 0; i < senders.size(); ++i) {
+        Sender* sender = senders[i];
+        connect(sender, &Sender::messageSent, this, [&](const QString& message){
+            textEdit->append("Sent: " + message);
+            updateMessageDisplay(message, true);
+        });
     }
 
-    // Connect the signals to the slots
-    connect(button1, &QPushButton::clicked, this, &MainWindow::startThreads);
-    connect(button2, &QPushButton::clicked, this, &MainWindow::stopThreads);
-    connect(button3, &QPushButton::clicked, this, &MainWindow::closeApplication);
+    // Connect signals for each receiver
+    for (int i = 0; i < receivers.size(); ++i) {
+        Receiver* receiver = receivers[i];
+        connect(receiver, &Receiver::messageReceived, this, [&](const QString& message){
+            textEdit->append("Received: " + message);
+            updateMessageDisplay(message, false);
+        });
+    }
 
-    // Connect senders and receivers for message transmission
-    for (Sender *sender : m_senders) {
-        for (Receiver *receiver : m_receivers) {
-            connect(sender, &Sender::messageToSend, receiver, &Receiver::onMessageToSend);
+    // Connect signals for the buffer pool
+    connect(bufferPool, &BufferPool::bufferChanged, this, &MainWindow::updateBufferDisplay);
+    connect(bufferPool, &BufferPool::buffersUsedChanged, this, &MainWindow::updateBufferPoolDisplay);
+
+
+}
+
+MainWindow::~MainWindow()
+{
+    // Stop and delete all sender threads and sender instances
+    for (int i = 0; i < senders.size(); ++i) {
+        senderThreads[i]->quit();
+        senderThreads[i]->wait();
+        delete senderThreads[i];
+        delete senders[i];
+    }
+
+    // Stop and delete all receiver threads and receiver instances
+    for (int i = 0; i < receivers.size(); ++i) {
+        receiverThreads[i]->quit();
+        receiverThreads[i]->wait();
+        delete receiverThreads[i];
+        delete receivers[i];
+    }
+
+    // Delete other instances
+    delete bufferPool;
+    delete semaphoreManager;
+}
+
+
+void MainWindow::start() {
+    // Iterate over all senders and receivers to start them
+    for (int i = 0; i < senders.size(); ++i) {
+        senders[i]->restart();
+        if (!senderThreads[i]->isRunning()) {
+            senderThreads[i]->start();
         }
+    }
+    for (int i = 0; i < receivers.size(); ++i) {
+        receivers[i]->restart();
+        if (!receiverThreads[i]->isRunning()) {
+            receiverThreads[i]->start();
+        }
+    }
+    textEdit->append("Started.");
+}
+
+
+
+void MainWindow::pause() {
+    for (int i = 0; i < senders.size(); ++i) {
+        senders[i]->setShouldRun(false);
+    }
+    for (int i = 0; i < receivers.size(); ++i) {
+        receivers[i]->setShouldRun(false);
+    }
+    textEdit->append("Paused.");
+}
+
+void MainWindow::terminate() {
+    for (int i = 0; i < senders.size(); ++i) {
+        senders[i]->setShouldRun(false);
+        senderThreads[i]->quit();
+        senderThreads[i]->wait();
+    }
+    for (int i = 0; i < receivers.size(); ++i) {
+        receivers[i]->setShouldRun(false);
+        receiverThreads[i]->quit();
+        receiverThreads[i]->wait();
+    }
+    textEdit->append("Terminated.");
+}
+
+
+void MainWindow::updateBufferDisplay(const QString& status) {
+    // 更新缓冲池进度条
+    messageList->addItem(status);
+}
+
+void MainWindow::updateMessageDisplay(const QString& message, bool isSent) {
+    if (isSent) {
+        textEdit->append("Sent: " + message);
+    } else {
+        textEdit->append("Received: " + message);
     }
 }
 
-void MainWindow::startThreads() {
-    for (Sender *sender : m_senders) {
-        if (!sender->isRunning()) {
-            sender->start();
-        }
-    }
-
-    for (Receiver *receiver : m_receivers) {
-        if (!receiver->isRunning()) {
-            receiver->start();
-        }
-    }
-}
-
-void MainWindow::stopThreads() {
-    for (Sender *sender : m_senders) {
-        if (sender->isRunning()) {
-            sender->terminate();
-            sender->wait();
-        }
-    }
-
-    for (Receiver *receiver : m_receivers) {
-        if (receiver->isRunning()) {
-            receiver->terminate();
-            receiver->wait();
-        }
-    }
-}
-
-void MainWindow::closeApplication() {
-    stopThreads();
-    QMainWindow::close();
-}
-
-MainWindow::~MainWindow() {
-    stopThreads();
-    qDeleteAll(m_senders);
-    qDeleteAll(m_receivers);
+void MainWindow::updateBufferPoolDisplay(int usedBuffers) {
+    bufferPoolProgress->setValue(10 - usedBuffers);
 }

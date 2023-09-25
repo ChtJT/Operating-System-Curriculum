@@ -5,7 +5,13 @@
 
 class SemaphoreManager {
 public:
-    static QSemaphore bufferPoolSemaphore;
+    SemaphoreManager(int value=1);
+    ~SemaphoreManager();
+    void P();
+    void V();
+private:
+    QSemaphore semaphore;
+
 };
 
 #endif // SEMAPHOREMANAGER_H

@@ -2,14 +2,22 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTextEdit>
+#include <QThread>
 #include <QPushButton>
-#include <QList>
+#include <QTextEdit>
+#include <QVBoxLayout>
+#include <QProgressBar>
+#include <QListWidget>
+
+
 #include "bufferpool.h"
+#include "semaphoremanager.h"
 #include "sender.h"
 #include "receiver.h"
 
-class MainWindow : public QMainWindow {
+
+class MainWindow : public QMainWindow
+{
     Q_OBJECT
 
 public:
@@ -17,15 +25,27 @@ public:
     ~MainWindow();
 
 private slots:
-    void startThreads();
-    void stopThreads();
-    void closeApplication();
+    void updateBufferDisplay(const QString& status);
+    void updateMessageDisplay(const QString& message, bool isSent);
+    void updateBufferPoolDisplay(int usedBuffers);
 
 private:
-    QTextEdit *m_textEdit;
-    BufferPool *m_bufferPool;
-    QList<Sender*> m_senders;
-    QList<Receiver*> m_receivers;
+    void start();
+    void pause();
+    void terminate();
+
+    BufferPool* bufferPool;
+    SemaphoreManager* semaphoreManager;
+    QList<Sender*> senders;
+    QList<Receiver*> receivers;
+    QList<QThread*> senderThreads;
+    QList<QThread*> receiverThreads;
+    QPushButton *startButton;
+    QPushButton *pauseButton;
+    QPushButton *terminateButton;
+    QTextEdit *textEdit;
+    QProgressBar *bufferPoolProgress;
+    QListWidget *messageList;
 };
 
 #endif // MAINWINDOW_H

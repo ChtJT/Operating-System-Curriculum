@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QList>
+#include <QMutex>
 
 // Define the node structure for the linked list
 struct MessageNode {
@@ -10,20 +12,24 @@ struct MessageNode {
     MessageNode *next;
 };
 
-class BufferPool : public QObject {
+class BufferPool : public QObject{
     Q_OBJECT
 public:
-    explicit BufferPool(int n, QObject *parent = nullptr);
+    explicit BufferPool(int n, int m);
     ~BufferPool();
-
-    bool storeMessage(const QString &msg);
-    QString fetchMessage();
-
+    bool getBuffer(MessageNode*& msgNode);
+    bool releaseBuffer(MessageNode*& msgNode);
+    int getUsedBuffers() const { return usedBuffers; }
+signals:
+    void bufferChanged(const QString& status);
+    void buffersUsedChanged(int usedBuffers);
 private:
     int m_size;
-    int m_count;
+    int usedBuffers;
+    QMutex mutex;
     MessageNode *head;
     MessageNode *tail;
+
 };
 
 #endif // BUFFERPOOL_H
