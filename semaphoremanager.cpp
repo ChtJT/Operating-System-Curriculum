@@ -1,20 +1,45 @@
 #include "semaphoremanager.h"
 
-SemaphoreManager::SemaphoreManager(int value):semaphore(value){
+SemaphoreManager::SemaphoreManager()
+    : emptySem(10),   // 初始化为10，与代码1中的N相同
+    fullSem(0) {
+    pthread_mutex_init(&bufferMutex, NULL);
+    pthread_mutex_init(&queueMutex, NULL);
+    pthread_mutex_init(&fileMutex, NULL);
 
+    for(int i = 0; i < 4; ++i) {
+        msgTypeSem[i].release(0); // 初始化为0
+    }
 }
 
-SemaphoreManager::~SemaphoreManager()
-{
+SemaphoreManager::~SemaphoreManager() {
+    pthread_mutex_destroy(&bufferMutex);
+    pthread_mutex_destroy(&queueMutex);
+    pthread_mutex_destroy(&fileMutex);
+    // QSemaphore 的析构函数将自动处理资源的释放
 }
 
-// 获取信号量
-void SemaphoreManager::P()
-{
-    semaphore.acquire();
+
+pthread_mutex_t& SemaphoreManager::getBufferMutex() {
+    return bufferMutex;
 }
-// 释放信号量
-void SemaphoreManager::V()
-{
-    semaphore.release();
+
+pthread_mutex_t& SemaphoreManager::getQueueMutex() {
+    return queueMutex;
+}
+
+pthread_mutex_t& SemaphoreManager::getFileMutex() {
+    return fileMutex;
+}
+
+QSemaphore& SemaphoreManager::getEmptySem() {
+    return emptySem;
+}
+
+QSemaphore& SemaphoreManager::getFullSem() {
+    return fullSem;
+}
+
+QSemaphore& SemaphoreManager::getMsgTypeSem(int index) {
+    return msgTypeSem[index];
 }

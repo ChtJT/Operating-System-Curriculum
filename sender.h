@@ -1,29 +1,22 @@
 #ifndef SENDER_H
 #define SENDER_H
 
-#include <QObject>
 #include "bufferpool.h"
 #include "semaphoremanager.h"
+#include "receiver.h"
 
-class Sender : public QObject
-{
-    Q_OBJECT
+class Sender {
 public:
-    explicit Sender(BufferPool* pool, SemaphoreManager* semaphore, QObject *parent = nullptr);
-
-public slots:
-    void send();
-    void setShouldRun(bool value) { shouldRun = value; }
-    void restart() { shouldRun = true; }
-
-
-signals:
-    void messageSent(const QString& message);
+    Sender(int msgID, SemaphoreManager& semMgr, BufferPool& bufPool);
+    QString sendMessage();
+    QString getBufferPoolStatus() const;
+    QString getMessageChainStatus() const;
 
 private:
-    BufferPool* bufferPool;
-    SemaphoreManager* semaphoreManager;
-    bool shouldRun = true;
+    //Receiver &m_receiver;
+    int messageID;//消息ID
+    SemaphoreManager& semaphoreManager;//信号量管理器的引用
+    BufferPool& bufferPool;//缓冲池的引用
 };
 
 #endif // SENDER_H

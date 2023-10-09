@@ -1,31 +1,18 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <QObject>
 #include "bufferpool.h"
 #include "semaphoremanager.h"
 
-class Receiver : public QObject {
-    Q_OBJECT
-
+class Receiver {
 public:
-    explicit Receiver(BufferPool* pool, SemaphoreManager* semaphore, QObject *parent = nullptr);
-
-    //void run() override;
-
-signals:
-    void messageReceived(const QString& message, int poolNumber);
-
-public slots:
-    void receive();
-    void setShouldRun(bool value) { shouldRun = value; }
-    void restart() { shouldRun = true; }
+    Receiver(int msgID, SemaphoreManager& semMgr, BufferPool& bufPool);
+    QString receiveMessage();
 
 private:
-    BufferPool *m_bufferPool;
-    SemaphoreManager *semaphoreManager;
-    bool shouldRun = true;
-
+    int messageID;
+    SemaphoreManager& semaphoreManager;
+    BufferPool& bufferPool;
 };
 
 #endif // RECEIVER_H
