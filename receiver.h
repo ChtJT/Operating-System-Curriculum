@@ -3,8 +3,9 @@
 
 #include "bufferpool.h"
 #include "semaphoremanager.h"
+#include <QObject>
 
-class Receiver {
+class Receiver : public QObject{
 public:
     Receiver(int msgID, SemaphoreManager& semMgr, BufferPool& bufPool);
     QString receiveMessage();

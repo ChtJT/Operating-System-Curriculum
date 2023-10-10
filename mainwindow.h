@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QTimer>
+#include <QThread>
+#include <array>
+#include <QObject>
 #include "sender.h"
 #include "receiver.h"
 
@@ -13,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(Sender& sender, Receiver& receiver, QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -21,12 +24,18 @@ private slots:
     void receiveMessages();
 
 private:
-    Sender& m_sender;
-    Receiver& m_receiver;
-
     QPushButton* sendButton;
     QPushButton* receiveButton;
     QTextEdit* m_logTextEdit;
+
+    // 线程数组
+    SemaphoreManager semMgr;
+    BufferPool bufPool;
+    std::vector<Sender*> senders;
+    std::array<QThread*, 3> sendThreads;
+    std::vector<Receiver*> receivers;
+    std::vector<QThread*> receiveThreads;
+
 };
 
 #endif // MAINWINDOW_H

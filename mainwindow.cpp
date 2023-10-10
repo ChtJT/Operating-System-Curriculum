@@ -1,9 +1,7 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(Sender& sender, Receiver& receiver, QWidget *parent)
-    : QMainWindow(parent),
-    m_sender(sender),
-    m_receiver(receiver)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
 {
     setWindowTitle("Message Sender and Receiver");
     resize(1000, 800);
@@ -23,37 +21,98 @@ MainWindow::MainWindow(Sender& sender, Receiver& receiver, QWidget *parent)
     m_logTextEdit->setFixedSize(800, 800);
     m_logTextEdit->move(200,0);
     m_logTextEdit->setReadOnly(true);
+
+    for(int i=0; i < 3;i++){
+        // Create a new Sender instance for each thread
+        Sender* threadSender = new Sender(1, semMgr, bufPool);
+        senders.push_back(threadSender);
+
+        QThread* thread = new QThread();
+        threadSender->moveToThread(thread);  // Move the new Sender instance to the thread
+
+        connect(thread, &QThread::started, threadSender, &Sender::sendMessage);
+        sendThreads[i] = thread;
+    }
+    for(int i=0; i < 3; i++){
+        // Create a new Receiver instance for each thread
+        Receiver* threadReceiver = new Receiver(1, semMgr, bufPool);
+        receivers.push_back(threadReceiver);
+
+        QThread* thread = new QThread();
+        threadReceiver->moveToThread(thread);  // Move the new Receiver instance to the thread
+
+        connect(thread, &QThread::started, threadReceiver, &Receiver::receiveMessage);
+        receiveThreads.push_back(thread);
+    }
+
 }
 
 MainWindow::~MainWindow()
 {
+    for (Sender* sender : senders) {
+        delete sender;
+    }
+    for (QThread* thread : sendThreads) {
+        thread->quit();
+        thread->wait();
+        delete thread;
+    }
+    for (Receiver* receiver : receivers) {
+        delete receiver;
+    }
+    for (QThread* thread : receiveThreads) {
+        thread->quit();
+        thread->wait();
+        delete thread;
+    }
     delete sendButton;
     delete receiveButton;
     delete m_logTextEdit;
 }
 
 void MainWindow::receiveMessages() {
-    QString receiveLog = m_receiver.receiveMessage();
-    m_logTextEdit->append(receiveLog);
+    int randomIndex = rand() % 3;  // Choose a random thread index
 
-    // Display the buffer pool status
-    QString bufferPoolStatus = m_sender.getBufferPoolStatus();
-    m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
+    if (!receiveThreads[randomIndex]->isRunning()) {  // Ensure the thread is not already running
+        receiveThreads[randomIndex]->start();  // Start the chosen thread
 
-    // Display the message chain status
-    QString messageChainStatus = m_sender.getMessageChainStatus();
-    m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
+        // Wait for the thread to finish if you want to immediately reflect the result on the GUI.
+        // receiveThreads[randomIndex]->wait();
+
+        // Display the buffer pool status
+        QString bufferPoolStatus = senders[randomIndex]->getBufferPoolStatus();  // Assuming the buffer pool status can be fetched from any Sender instance
+        m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
+
+        // Display the message chain status
+        QString messageChainStatus = senders[randomIndex]->getMessageChainStatus();  // Assuming the message chain status can be fetched from any Sender instance
+        m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
+
+    } else {
+        m_logTextEdit->append("Thread " + QString::number(randomIndex + 1) + " is already running. Please try again.");
+    }
 }
 
 void MainWindow::sendMessages() {
-    QString sendLog = m_sender.sendMessage();
-    m_logTextEdit->append(sendLog);
+    int randomIndex = rand() % 3;  // Choose a random thread index
 
-    // Display the buffer pool status
-    QString bufferPoolStatus = m_sender.getBufferPoolStatus();
-    m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
+    if (!sendThreads[randomIndex]->isRunning()) {  // Ensure the thread is not already running
+        sendThreads[randomIndex]->start();  // Start the chosen thread
+        // Wait for the thread to finish if you want to immediately reflect the result on the GUI.
+        // sendThreads[randomIndex]->wait();
+        // Get the log and status from the Sender instance corresponding to the chosen thread
+//        QString sendLog = senders[randomIndex]->sendMessage();
+//        m_logTextEdit->append(sendLog);
 
-    // Display the message chain status
-    QString messageChainStatus = m_sender.getMessageChainStatus();
-    m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
+        // Display the buffer pool status
+        QString bufferPoolStatus = senders[randomIndex]->getBufferPoolStatus();
+        m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
+
+        // Display the message chain status
+        QString messageChainStatus = senders[randomIndex]->getMessageChainStatus();
+        m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
+
+    } else {
+        // If the chosen thread is already running, you can either wait or choose another one.
+        m_logTextEdit->append("Thread " + QString::number(randomIndex + 1) + " is already running. Please try again.");
+    }
 }
