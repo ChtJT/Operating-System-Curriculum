@@ -136,12 +136,30 @@ void MainWindow::sendMessages() {
         QString messageChainStatus = senders[randomIndex]->getMessageChainStatus();
         m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
 
-//    } else {
-//        // If the chosen thread is already running, you can either wait or choose another one.
-//        m_logTextEdit->append("Thread " + QString::number(randomIndex + 1) + " is already running. Please try again.");
-//    }
 }
 
 void MainWindow::helpMessages(){
+        QDir currentDir = QCoreApplication::applicationDirPath();
+        qDebug()<< currentDir;
+        currentDir.cdUp();
+        // 移动到Operating-System-Curriculum子目录
+        if(currentDir.cd("Operating-System-Curriculum")) {
+        // 构建README.md的完整路径
+        QString defaultPath = currentDir.absoluteFilePath("README.md");
 
+        QString file_path = QFileDialog::getOpenFileName(this, "Open README.md", defaultPath, "Markdown (*.md)");
+        if(!file_path.isEmpty()){
+            QFile file(file_path);
+            if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+                QTextStream in(&file);
+                QString markdownContent = in.readAll();
+                file.close();
+                m_logTextEdit->setPlainText(markdownContent); // 设置内容到QTextEdit
+            }
+        }
+        } else {
+            // Handle the case when the directory doesn't exist or there's another error.
+            QMessageBox::warning(this, "Error", "Operating-System-Curriculum directory not found!");
+        }
 }
+

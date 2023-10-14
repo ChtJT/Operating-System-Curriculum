@@ -8,6 +8,9 @@
 #include <QThread>
 #include <array>
 #include <QObject>
+#include <QFileDialog>
+#include <QCoreApplication>
+#include <QMessageBox>
 #include "sender.h"
 #include "receiver.h"
 
