@@ -15,6 +15,7 @@ QString Sender::sendMessage() {
 //        // 当消息链中的消息数量达到N时，首先接收第一个消息
 //        m_receiver.receiveMessage(); // 假设 m_receiver 是 Receiver 的一个实例
 //    }
+    if(bufferPool.getNumberOfQueMessages()>=10) return QString("The bufferpoll is full");
     // 1. 等待空闲缓冲区
     semaphoreManager.getEmptySem().acquire();
     // 在获取空闲缓冲区后记录缓冲池状态

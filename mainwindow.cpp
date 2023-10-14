@@ -101,13 +101,10 @@ void MainWindow::receiveMessages() {
     int randomIndex = rand() % 3;  // Choose a random thread index
 
       // Ensure the thread is not already running
-    receiveThreads[randomIndex]->start();  // Start the chosen thread
+    QString receivelog = receivers[randomIndex]->receiveMessage();  // Start the chosen thread
     m_logTextEdit->append("The receiveThread is " + QString::number(randomIndex));
+    m_logTextEdit->append(receivelog);
 
-        // Wait for the thread to finish if you want to immediately reflect the result on the GUI.
-        // receiveThreads[randomIndex]->wait();
-
-        // Display the buffer pool status
     QString bufferPoolStatus = senders[randomIndex]->getBufferPoolStatus();  // Assuming the buffer pool status can be fetched from any Sender instance
     m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
 
@@ -119,22 +116,18 @@ void MainWindow::receiveMessages() {
 void MainWindow::sendMessages() {
     int randomIndex = rand() % 3;  // Choose a random thread index
 
-    //if (!sendThreads[randomIndex]->isRunning()) {  // Ensure the thread is not already running
-        sendThreads[randomIndex]->start();  // Start the chosen thread
-        m_logTextEdit->append("The sendThread is " + QString::number(randomIndex));
-        // Wait for the thread to finish if you want to immediately reflect the result on the GUI.
-        // sendThreads[randomIndex]->wait();
-        // Get the log and status from the Sender instance corresponding to the chosen thread
-//        QString sendLog = senders[randomIndex]->sendMessage();
-//        m_logTextEdit->append(sendLog);
+    QString sendlog = senders[randomIndex]->sendMessage();  // Start the chosen thread
+    m_logTextEdit->append("The sendThread is " + QString::number(randomIndex));
+    m_logTextEdit->append(sendlog);
 
-        // Display the buffer pool status
-        QString bufferPoolStatus = senders[randomIndex]->getBufferPoolStatus();
-        m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
 
-        // Display the message chain status
-        QString messageChainStatus = senders[randomIndex]->getMessageChainStatus();
-        m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
+    // Display the buffer pool status
+    QString bufferPoolStatus = senders[randomIndex]->getBufferPoolStatus();
+    m_logTextEdit->append("Buffer Pool Status: " + bufferPoolStatus);
+
+    // Display the message chain status
+    QString messageChainStatus = senders[randomIndex]->getMessageChainStatus();
+    m_logTextEdit->append("Message Chain Status: " + messageChainStatus);
 
 }
 

@@ -8,6 +8,7 @@ Receiver::Receiver(int msgID, SemaphoreManager& semMgr, BufferPool& bufPool)
     : messageID(msgID), semaphoreManager(semMgr), bufferPool(bufPool) {}
 
 QString Receiver::receiveMessage() {
+    if(bufferPool.getMessageChainCount()<=0) return QString("The Message Chain is empty");
     // 2. 获取消息链的头部
     pthread_mutex_lock(&semaphoreManager.getBufferMutex());
     MyMsgBuf* temp = bufferPool.getFirstMessage();
