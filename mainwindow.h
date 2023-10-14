@@ -22,10 +22,12 @@ public:
 private slots:
     void sendMessages();
     void receiveMessages();
+    void helpMessages();
 
 private:
     QPushButton* sendButton;
     QPushButton* receiveButton;
+    QPushButton* helpButton;
     QTextEdit* m_logTextEdit;
 
     // 线程数组
